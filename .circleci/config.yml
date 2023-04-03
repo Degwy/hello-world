@@ -71,14 +71,14 @@ workflows:
       - read_hello_world_output:
           requires:
             - save_hello_world_output
-  # say-hello-workflow:
-  #   jobs:
-  #     - say-hello
+  say-hello-workflow:
+    jobs:
+      - say-hello
 
-  # welcome-workflow:
-  #   # Run the welcome/run job in its own container
-  #   jobs:
-      # - print_hello
-      # - print_world:
-      #     requires:
-      #       - print_hello
+  welcome-workflow:
+    # Run the welcome/run job in its own container
+    jobs:
+      - print_hello
+      - print_world:
+          requires:
+            - print_hello
