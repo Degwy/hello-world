@@ -54,7 +54,7 @@ jobs:
           at: ~/
       - run:
           name: "Save th ename"
-          command: cat output.txt
+          command: cat ~/output.txt
       
 
 # Orchestrate jobs using workflows
