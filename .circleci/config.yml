@@ -2,11 +2,6 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-# Orchestrate or schedule a set of jobs
-
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
@@ -39,18 +34,39 @@ jobs:
           name: "List"
           command: "ls -G" 
 
+  save_hello_world_output:
+    docker: 
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          name: "Save th ename"
+          command: echo "text to output here" > output.txt
+
+  read_hello_world_output:
+    docker: 
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          name: "Save th ename"
+          command: cat output.txt
+
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  test-workspace:
     jobs:
-      - say-hello
-
-  welcome-workflow:
-    # Run the welcome/run job in its own container
-    jobs:
-      - welcome/run
-      - print_hello
-      - print_world:
+      - save_hello_world_output
+      - read_hello_world_output:
           requires:
-            - print_hello
+            - save_hello_world_output
+  # say-hello-workflow:
+  #   jobs:
+  #     - say-hello
+
+  # welcome-workflow:
+  #   # Run the welcome/run job in its own container
+  #   jobs:
+      # - print_hello
+      # - print_world:
+      #     requires:
+      #       - print_hello
