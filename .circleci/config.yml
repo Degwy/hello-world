@@ -41,14 +41,21 @@ jobs:
       - run:
           name: "Save th ename"
           command: echo "text to output here" > output.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - output.txt
 
   read_hello_world_output:
     docker: 
       - image: circleci/node:13.8.0
     steps:
+      - attach_workspace:
+          at: ~/
       - run:
           name: "Save th ename"
           command: cat output.txt
+      
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
