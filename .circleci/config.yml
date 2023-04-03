@@ -22,7 +22,7 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo Hello, World!"
+          command: "echo Hello, << MY_NAME >>!"
   print_hello:
     docker: 
       - image: circleci/node:13.8.0
@@ -46,7 +46,7 @@ workflows:
     jobs:
       - say-hello
 
-  welcome:
+  welcome-workflow:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
